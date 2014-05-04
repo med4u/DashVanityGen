@@ -313,6 +313,7 @@ usage(const char *name)
 "-1            Stop after first match\n"
 "-N            Generate namecoin address\n"
 "-T            Generate bitcoin testnet address\n"
+"-D			   Generate darkcoin address\n"	
 "-X <version>  Generate address with the given version\n"
 "-F <format>   Generate address with the given format (pubkey or script)\n"
 "-P <pubkey>   Specify base public key for piecewise key generation\n"
@@ -361,7 +362,7 @@ main(int argc, char **argv)
 
 	int i;
 
-	while ((opt = getopt(argc, argv, "vqnrik1eE:P:NTX:F:t:h?f:o:s:")) != -1) {
+	while ((opt = getopt(argc, argv, "vqnrik1eE:P:DNTX:F:t:h?f:o:s:")) != -1) {
 		switch (opt) {
 		case 'v':
 			verbose = 2;
@@ -393,6 +394,11 @@ main(int argc, char **argv)
 			addrtype = 111;
 			privtype = 239;
 			scriptaddrtype = 196;
+			break;
+		case 'D': //base58.h in Darkcoin Source Code!
+			addrtype = 76; //line 275 base58.h 
+			privtype = 204; //line 403 base58.h
+			scriptaddrtype = 5; //line 276 base58.h
 			break;
 		case 'X':
 			addrtype = atoi(optarg);
